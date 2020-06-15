@@ -9,13 +9,13 @@
 <ion-content [fullscreen]="true">
   <ion-reorder-group disabled="false">
     <!-- Default reorder icon, end aligned items -->
-    <ion-item *ngFor="let task of tasks">
+    <ion-item *ngFor="let task of tasks; let i = index">
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>{{ task.date }}</ion-card-subtitle>
           <ion-card-title>
             {{ task.task }}
-            <ion-button fill="clear" color="danger" size="small" shape="round">
+            <ion-button (click)="removeTask(i)" fill="clear" color="danger" size="small" shape="round">
               <ion-icon size="small" slot="icon-only" name="trash-outline"></ion-icon>
             </ion-button>
           </ion-card-title>
@@ -27,8 +27,8 @@
       <ion-reorder slot="end"></ion-reorder>
     </ion-item>
   </ion-reorder-group>
-<ion-fab slot="fixed" vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button>
+<ion-fab slot="fixed" vertical="bottom" horizontal="center" slot="fixed">
+  <ion-fab-button (click)="presentModal()">
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab>
