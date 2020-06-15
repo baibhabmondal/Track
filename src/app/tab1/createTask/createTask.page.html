@@ -11,19 +11,18 @@
         <ion-card-content>
             <ion-item>
                 <ion-label position="stacked">Task</ion-label>
-                <ion-input></ion-input>
+                <ion-input (change)="changeTask($event)"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">Sub Tasks/ Descriptions</ion-label>
-                <ion-input></ion-input>
+                <ion-input (change)="changeDesc($event)"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label position="floating">Pick a Deadline</ion-label>
                 <ion-datetime displayFormat="MM DD YY" min="2020-05-13" placeholder="Select Date"></ion-datetime>
             </ion-item>
-            <h1>{{ minDate }}</h1>
-            <ion-button expand="block" color="success" (click)="create()">Create</ion-button>
-            <ion-button expand="block" color="danger" (click)="dismiss()">Close</ion-button>
         </ion-card-content>
     </ion-card>
+    <ion-button expand="block" color="success" (click)="create()">Create</ion-button>
+    <ion-button expand="block" color="danger" (click)="dismiss()">Close</ion-button>
 </ion-content>

@@ -7,29 +7,71 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-reorder-group disabled="false">
-    <!-- Default reorder icon, end aligned items -->
-    <ion-item *ngFor="let task of tasks; let i = index">
+  <ion-slides pager="true">
+    <ion-slide>
+      <ion-reorder-group disabled="false">
+        <!-- Default reorder icon, end aligned items -->
+        <ion-item *ngFor="let task of tasks; let i = index">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>{{ task.date }}</ion-card-subtitle>
+              <ion-item>
+                <ion-icon name="create-outline" slot="start" size="small"></ion-icon>
+                <ion-card-title>
+                  {{ task.task }}
+                </ion-card-title>
+                <ion-button fill="clear" slot="end" (click)="removeTask(i)" color="danger">
+                  <ion-icon size="small" slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-card-header>
+            <ion-card-content>
+              {{ task.desc }}
+            </ion-card-content>
+            <ion-item>
+              <ion-labe>
+                Move to In Progress
+              </ion-labe>
+              <ion-button fill="clear" slot="end" (click)="moveTask(i)" color="success">
+                <ion-icon size="small" slot="icon-only" name="hourglass-outline"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-card>
+          <ion-reorder slot="end"></ion-reorder>
+        </ion-item>
+      </ion-reorder-group>
+    </ion-slide>
+    <ion-slide *ngFor="let task of tasks; let i = index">
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>{{ task.date }}</ion-card-subtitle>
-          <ion-card-title>
-            {{ task.task }}
-            <ion-button (click)="removeTask(i)" fill="clear" color="danger" size="small" shape="round">
+          <ion-item>
+            <ion-icon name="create-outline" slot="start" size="small"></ion-icon>
+            <ion-card-title>
+              {{ task.task }}
+            </ion-card-title>
+            <ion-button fill="clear" slot="end" (click)="removeTask(i)" color="danger">
               <ion-icon size="small" slot="icon-only" name="trash-outline"></ion-icon>
             </ion-button>
-          </ion-card-title>
+          </ion-item>
         </ion-card-header>
         <ion-card-content>
           {{ task.desc }}
         </ion-card-content>
+        <ion-item>
+          <ion-labe>
+            Move to In Progress
+          </ion-labe>
+          <ion-button fill="clear" slot="end" (click)="moveTask(i)" color="success">
+            <ion-icon size="small" slot="icon-only" name="hourglass-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
       </ion-card>
-      <ion-reorder slot="end"></ion-reorder>
-    </ion-item>
-  </ion-reorder-group>
-<ion-fab slot="fixed" vertical="bottom" horizontal="center" slot="fixed">
-  <ion-fab-button (click)="presentModal()">
-    <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
+    </ion-slide>
+  </ion-slides>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="presentModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

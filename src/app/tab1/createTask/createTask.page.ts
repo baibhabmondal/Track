@@ -1,3 +1,4 @@
+import { TaskServiceService } from './../../../services/task-service.service';
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
@@ -7,9 +8,11 @@ import { ModalController } from '@ionic/angular';
 })
 export class CreateTaskPage {
 
-    @Input() minDate: String;
+    task = '';
+    desc = '';
+    // @Input() minDate: String;
 
-    constructor(public modalController: ModalController) {}
+    constructor(public modalController: ModalController, private taskService: TaskServiceService) {}
 
   dismiss() {
       // using the injected ModalController this page
@@ -19,9 +22,24 @@ export class CreateTaskPage {
       });
   }
 
-  
+  changeTask(e) {
+    //   console.log(e);
+      this.task = e.target.value;
+  }
+
+  changeDesc(e) {
+    //   console.log(e);
+      this.desc = e.target.value;
+  }
 
   create() {
-
+    let d = new Date();
+    let opt = {year: 'numeric', month: 'long', day: 'numeric'};
+    let task = {};
+    task['date'] = d.toLocaleDateString('en-US', opt);
+    task['task'] = this.task;
+    task['desc'] = this.desc;
+    this.taskService.createTask(task);
+    this.dismiss();
   }
 }

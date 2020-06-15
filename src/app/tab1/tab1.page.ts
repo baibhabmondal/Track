@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { TaskServiceService } from './../../services/task-service.service';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateTaskPage } from './createTask/createTask.page';
 
@@ -7,61 +8,48 @@ import { CreateTaskPage } from './createTask/createTask.page';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
-  minDate: String;
-  tasks = [
-    {
-      date: '29 June',
-      task: 'The main task.',
-      desc: 'The description of the task.'
-    },
-    {
-      date: '29 June',
-      task: 'The main task 2.',
-      desc: 'The description of the task.'
-    },
-    {
-      date: '29 June',
-      task: 'The main task 3.',
-      desc: 'The description of the task.'
-    },
-  ];
+export class Tab1Page implements OnInit{
+  // minDate: String;
+  
+  tasks = [];
+  constructor(public modalController: ModalController, private taskService: TaskServiceService) {}
 
-  constructor(public modalController: ModalController) {}
-
-  minDateStr() {
-    let d = new Date();
-    console.log(d);
-    let month = d.getMonth() + 1;
-    let year = d.getFullYear();
-    let day = d.getDate() - 1;
-    let dayStr = "" + day;
-    let monthStr = "" + month;
-    if (day < 10) {
-      dayStr = '0' + dayStr;
-    }
-    if (month < 10) {
-      monthStr = '0' + monthStr;
-    }
-    let dateStr = "" + year + "-" + monthStr + "-" + dayStr;
-    console.log(dateStr)
-    this.minDate = dateStr;
+  ngOnInit() {
+    this.tasks = this.taskService.toDoTasks();
   }
+  // minDateStr() {
+  //   let d = new Date();
+  //   console.log(d);
+  //   let month = d.getMonth() + 1;
+  //   let year = d.getFullYear();
+  //   let day = d.getDate() - 1;
+  //   let dayStr = "" + day;
+  //   let monthStr = "" + month;
+  //   if (day < 10) {
+  //     dayStr = '0' + dayStr;
+  //   }
+  //   if (month < 10) {
+  //     monthStr = '0' + monthStr;
+  //   }
+  //   let dateStr = "" + year + "-" + monthStr + "-" + dayStr;
+  //   console.log(dateStr)
+  //   this.minDate = dateStr;
+  // }
 
   async presentModal() {
-    this.minDateStr();
+    // this.minDateStr();
     const modal = await this.modalController.create({
       component: CreateTaskPage,
-      cssClass: 'my-custom-class',
-      componentProps: {
-        'minDate': this.minDate
-      }
+      cssClass: 'my-custom-class'
     });
     return await modal.present();
   }
 
   removeTask(index) {
-    this.tasks.splice(index, 1);
+    this.taskService.todo.splice(index, 1);
   }
   
+  moveTask(index) {
+    this.taskService.moveToProgress(index);
+  }
 }

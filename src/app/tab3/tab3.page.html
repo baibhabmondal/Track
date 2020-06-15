@@ -1,17 +1,56 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Done
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-slides pager="true">
+    <ion-slide>
+      <ion-reorder-group disabled="false">
+        <!-- Default reorder icon, end aligned items -->
+        <ion-item *ngFor="let task of tasks; let i = index">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>{{ task.date }}</ion-card-subtitle>
+              <ion-item>
+                <ion-icon name="create-outline" slot="start" size="small"></ion-icon>
+                <ion-card-title>
+                  {{ task.task }}
+                </ion-card-title>
+                <ion-button fill="clear" slot="end" (click)="removeTask(i)" color="danger">
+                  <ion-icon size="small" slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-card-header>
+            <ion-card-content>
+              {{ task.desc }}
+            </ion-card-content>
+          </ion-card>
+          <ion-reorder slot="end"></ion-reorder>
+        </ion-item>
+      </ion-reorder-group>
+    </ion-slide>
+    <ion-slide *ngFor="let task of tasks; let i = index">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>{{ task.date }}</ion-card-subtitle>
+          <ion-item>
+            <ion-icon name="create-outline" slot="start" size="small"></ion-icon>
+            <ion-card-title>
+              {{ task.task }}
+            </ion-card-title>
+            <ion-button fill="clear" slot="end" (click)="removeTask(i)" color="danger">
+              <ion-icon size="small" slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+          {{ task.desc }}
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
