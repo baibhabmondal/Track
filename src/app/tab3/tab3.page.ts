@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab3Page implements OnInit {
   tasks = [];
+  sliderOptions = { pager: true, autoHeight: true };
   constructor(private taskService: TaskServiceService) {}
 
   ngOnInit() {
@@ -18,4 +19,10 @@ export class Tab3Page implements OnInit {
     this.taskService.done.splice(index, 1);
   }
 
+  doReorder(ev: any) {
+
+    // console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
+    this.taskService.reorderDone(ev.detail.from, ev.detail.to);
+    ev.detail.complete();
+  }
 }

@@ -8,7 +8,7 @@ export class TaskServiceService {
   todo = [
     {
       date: '29 June',
-      task: 'The main task. lorememm s s  d asdsjdlasjdalsdj skdjasd ',
+      task: 'The main task.',
       desc: 'The description of the task.'
     },
     {
@@ -88,5 +88,23 @@ export class TaskServiceService {
     let task = [];
     task = this.progress.splice(index, 1);
     this.done.push(task[0]);
+  }
+
+  reorderTodo(from, to) {
+    let task = [];
+    task = this.todo.splice(from, 1);
+    this.todo.splice(to, 0, task[0]);
+  }
+
+  reorderProgress(from, to) {
+    let task = [];
+    task = this.progress.splice(from, 1);
+    this.progress.splice(to, 0, task[0]);
+  }
+
+  reorderDone(from, to) {
+    let task = [];
+    task = this.done.splice(from, 1);
+    this.done.splice(to, 0, task[0]);
   }
 }

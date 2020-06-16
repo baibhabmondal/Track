@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class Tab2Page implements OnInit{
 
   tasks = [];
-
+  sliderOptions = { pager: true, autoHeight: true };
   constructor(private taskService: TaskServiceService) {}
   
   ngOnInit() {
@@ -21,5 +21,12 @@ export class Tab2Page implements OnInit{
 
   moveTask(index) {
     this.taskService.moveToDone(index);
+  }
+
+  doReorder(ev: any) {
+
+    // console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
+    this.taskService.reorderProgress(ev.detail.from, ev.detail.to);
+    ev.detail.complete();
   }
 }

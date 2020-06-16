@@ -9,32 +9,23 @@ import { CreateTaskPage } from './createTask/createTask.page';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit{
-  // minDate: String;
-  
+
+  sliderOptions = { pager: true, autoHeight: true };
+
   tasks = [];
   constructor(public modalController: ModalController, private taskService: TaskServiceService) {}
 
   ngOnInit() {
     this.tasks = this.taskService.toDoTasks();
   }
-  // minDateStr() {
-  //   let d = new Date();
-  //   console.log(d);
-  //   let month = d.getMonth() + 1;
-  //   let year = d.getFullYear();
-  //   let day = d.getDate() - 1;
-  //   let dayStr = "" + day;
-  //   let monthStr = "" + month;
-  //   if (day < 10) {
-  //     dayStr = '0' + dayStr;
-  //   }
-  //   if (month < 10) {
-  //     monthStr = '0' + monthStr;
-  //   }
-  //   let dateStr = "" + year + "-" + monthStr + "-" + dayStr;
-  //   console.log(dateStr)
-  //   this.minDate = dateStr;
-  // }
+  doReorder(ev: any) {
+
+    // console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
+    this.taskService.reorderTodo(ev.detail.from, ev.detail.to);
+    ev.detail.complete();
+  }
+
+
 
   async presentModal() {
     // this.minDateStr();
@@ -50,6 +41,8 @@ export class Tab1Page implements OnInit{
   }
   
   moveTask(index) {
+    console.log("called")
     this.taskService.moveToProgress(index);
+    // event.stopPropagation();
   }
 }

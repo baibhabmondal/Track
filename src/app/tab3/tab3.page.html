@@ -7,30 +7,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-slides pager="true">
+  <ion-slides pager="true" [options]="sliderOptions">
     <ion-slide>
-      <ion-reorder-group disabled="false">
-        <!-- Default reorder icon, end aligned items -->
-        <ion-item *ngFor="let task of tasks; let i = index">
-          <ion-card>
+      <ion-reorder-group disabled="false" (ionItemReorder)="doReorder($event)">
+
+        <ion-card *ngFor="let task of tasks; let i = index">
+          <ion-reorder>
             <ion-card-header>
               <ion-card-subtitle>{{ task.date }}</ion-card-subtitle>
               <ion-item>
                 <ion-icon name="create-outline" slot="start" size="small"></ion-icon>
-                <ion-card-title>
+                <ion-label>
                   {{ task.task }}
-                </ion-card-title>
-                <ion-button fill="clear" slot="end" (click)="removeTask(i)" color="danger">
-                  <ion-icon size="small" slot="icon-only" name="trash-outline"></ion-icon>
-                </ion-button>
+                </ion-label>
               </ion-item>
             </ion-card-header>
-            <ion-card-content>
-              {{ task.desc }}
-            </ion-card-content>
-          </ion-card>
-          <ion-reorder slot="end"></ion-reorder>
-        </ion-item>
+          </ion-reorder>
+          <ion-card-content>
+            {{ task.desc }}
+          </ion-card-content>
+          <ion-item>
+            <ion-label>
+              Delete Task
+            </ion-label>
+            <ion-button fill="clear" slot="end" (click)="removeTask(i)" color="danger">
+              <ion-icon size="small" slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-card>
       </ion-reorder-group>
     </ion-slide>
     <ion-slide *ngFor="let task of tasks; let i = index">
