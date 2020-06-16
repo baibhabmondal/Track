@@ -10,6 +10,7 @@ export class CreateTaskPage {
 
     task = '';
     desc = '';
+    deadline = new Date();
     // @Input() minDate: String;
 
     constructor(public modalController: ModalController, private taskService: TaskServiceService) {}
@@ -32,8 +33,15 @@ export class CreateTaskPage {
       this.desc = e.target.value;
   }
 
+  changeDeadline(e) {
+    console.log(e.detail.value);
+    // this.deadline = (document.getElementById('deadline') as any).value
+    this.deadline = new Date(e.detail.value);
+    // console.log(this.deadline)
+  }
+
   create() {
-    let d = new Date();
+    let d = this.deadline;
     let opt = {year: 'numeric', month: 'long', day: 'numeric'};
     let task = {};
     task['date'] = d.toLocaleDateString('en-US', opt);

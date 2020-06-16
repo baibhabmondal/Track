@@ -19,7 +19,7 @@
             </ion-item>
             <ion-item>
                 <ion-label position="floating">Pick a Deadline</ion-label>
-                <ion-datetime displayFormat="MM DD YY" min="2020-05-13" placeholder="Select Date"></ion-datetime>
+                <ion-datetime id="deadline" (ionChange)="changeDeadline($event)" displayFormat="MM DD YY" min="2020-05-13" placeholder="Select Date"></ion-datetime>
             </ion-item>
         </ion-card-content>
     </ion-card>
