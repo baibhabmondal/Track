@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { TaskServiceService } from './../../services/task-service.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,13 +11,18 @@ import { Component, OnInit } from '@angular/core';
 export class Tab3Page implements OnInit {
   tasks = [];
   sliderOptions = { pager: true, autoHeight: true };
-  constructor(private taskService: TaskServiceService) {}
+  constructor(private taskService: TaskServiceService, private storage: Storage) {}
 
-  ngOnInit() {
+ ngOnInit() {
+    // const done = await this.storage.get('done');
+    // console.log(done);
+    // if (done != null) {
+    //   this.taskService.done = done;
+    // }
     this.tasks = this.taskService.doneTasks();
   }
   removeTask(index) {
-    this.taskService.done.splice(index, 1);
+    this.taskService.tasks.done.splice(index, 1);
   }
 
   doReorder(ev: any) {

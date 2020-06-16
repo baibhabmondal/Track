@@ -1,7 +1,9 @@
+import { Storage } from '@ionic/storage';
 import { TaskServiceService } from './../../services/task-service.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateTaskPage } from './createTask/createTask.page';
+
 
 @Component({
   selector: 'app-tab1',
@@ -13,9 +15,13 @@ export class Tab1Page implements OnInit{
   sliderOptions = { pager: true, autoHeight: true };
 
   tasks = [];
-  constructor(public modalController: ModalController, private taskService: TaskServiceService) {}
+  constructor(public modalController: ModalController, private taskService: TaskServiceService, private storage: Storage) {}
 
   ngOnInit() {
+    // const todo = await this.storage.get('todo');
+    // if (todo != null) {
+    //   this.taskService.todo = todo;
+    // }
     this.tasks = this.taskService.toDoTasks();
   }
   doReorder(ev: any) {
@@ -53,11 +59,10 @@ export class Tab1Page implements OnInit{
   }
 
   removeTask(index) {
-    this.taskService.todo.splice(index, 1);
+    this.taskService.tasks.todo.splice(index, 1);
   }
   
   moveTask(index) {
-    console.log("called")
     this.taskService.moveToProgress(index);
     // event.stopPropagation();
   }

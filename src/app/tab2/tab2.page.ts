@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { TaskServiceService } from './../../services/task-service.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,13 +11,17 @@ export class Tab2Page implements OnInit{
 
   tasks = [];
   sliderOptions = { pager: true, autoHeight: true };
-  constructor(private taskService: TaskServiceService) {}
-  
+  constructor(private taskService: TaskServiceService, private storage: Storage) {}
+
   ngOnInit() {
+    // const progress = await this.storage.get('progress');
+    // if (progress != null) {
+    //   this.taskService.progress = progress;
+    // }
     this.tasks = this.taskService.inProgressTasks();
   }
   removeTask(index) {
-    this.taskService.progress.splice(index, 1);
+    this.taskService.tasks.progress.splice(index, 1);
   }
 
   moveTask(index) {
