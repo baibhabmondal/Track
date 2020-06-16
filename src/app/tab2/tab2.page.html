@@ -13,7 +13,12 @@
         <ion-card *ngFor="let task of tasks; let i = index">
           <ion-reorder>
             <ion-card-header>
-              <ion-card-subtitle>{{ task.date }}</ion-card-subtitle>
+              <ion-item lines="none">
+                <ion-icon name="time-outline" slot="start" size="small"></ion-icon>
+                <ion-card-subtitle>{{ task.dateStr }}</ion-card-subtitle>
+              </ion-item>
+              <ion-progress-bar color="medium" value="{{ calc_progress(task.create_date, task.deadline) }}">
+              </ion-progress-bar>
               <ion-item lines="none">
                 <ion-icon name="create-outline" slot="end" size="small"></ion-icon>
                 <ion-label>
@@ -48,7 +53,12 @@
     <ion-slide *ngFor="let task of tasks; let i = index">
       <ion-card>
         <ion-card-header>
-          <ion-card-subtitle>{{ task.date }}</ion-card-subtitle>
+          <ion-item lines="none">
+            <ion-icon name="time-outline" slot="start" size="small"></ion-icon>
+            <ion-card-subtitle>{{ task.dateStr }}</ion-card-subtitle>
+          </ion-item>
+          <ion-progress-bar color="medium" value="{{ calc_progress(task.create_date, task.deadline) }}">
+          </ion-progress-bar>
           <ion-item lines="none">
             <ion-icon name="create-outline" slot="end" size="small"></ion-icon>
             <ion-label>
@@ -56,25 +66,25 @@
             </ion-label>
           </ion-item>
         </ion-card-header>
-      <ion-card-content>
-        {{ task.desc }}
-      </ion-card-content>
-      <ion-item>
-        <ion-label>
-          Move to Done!
-        </ion-label>
-        <ion-button fill="clear" slot="end" (click)="moveTask(i)" color="success">
-          <ion-icon size="small" slot="icon-only" name="trophy-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-label>
-          Delete Task
-        </ion-label>
-        <ion-button fill="clear" slot="end" (click)="removeTask(i)" color="danger">
-          <ion-icon size="small" slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+        <ion-card-content>
+          {{ task.desc }}
+        </ion-card-content>
+        <ion-item>
+          <ion-label>
+            Move to Done!
+          </ion-label>
+          <ion-button fill="clear" slot="end" (click)="moveTask(i)" color="success">
+            <ion-icon size="small" slot="icon-only" name="trophy-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Delete Task
+          </ion-label>
+          <ion-button fill="clear" slot="end" (click)="removeTask(i)" color="danger">
+            <ion-icon size="small" slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
       </ion-card>
     </ion-slide>
   </ion-slides>

@@ -25,4 +25,22 @@ export class Tab3Page implements OnInit {
     this.taskService.reorderDone(ev.detail.from, ev.detail.to);
     ev.detail.complete();
   }
+
+  calc_progress(create, deadline) {
+    let today = new Date().getTime();
+    // let total = deadline.getTime() - create.getTime();
+    let diff = deadline.getTime() - today;
+    let days = diff / (1000 * 3600 * 24);
+    if (days > 30)
+      return 1;
+    else if (days > 15)
+      return 0.75;
+    else if (days > 7)
+      return 0.5;
+    else if (days > 3)
+      return 0.25;
+    else if (days > 1)
+      return 0.15;
+    else return 0;
+  }
 }

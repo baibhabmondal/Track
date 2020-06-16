@@ -11,15 +11,15 @@
         <ion-card-content>
             <ion-item>
                 <ion-label position="stacked">Task</ion-label>
-                <ion-input (change)="changeTask($event)"></ion-input>
+                <ion-input required (change)="changeTask($event)"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">Sub Tasks/ Descriptions</ion-label>
-                <ion-input (change)="changeDesc($event)"></ion-input>
+                <ion-input required (change)="changeDesc($event)"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label position="floating">Pick a Deadline</ion-label>
-                <ion-datetime id="deadline" (ionChange)="changeDeadline($event)" displayFormat="MM DD YY" min="2020-05-13" placeholder="Select Date"></ion-datetime>
+                <ion-datetime required min="{{ minDate() }}" (ionChange)="changeDeadline($event)" displayFormat="MM DD YY" min="2020-05-13" placeholder="Select Date"></ion-datetime>
             </ion-item>
         </ion-card-content>
     </ion-card>
