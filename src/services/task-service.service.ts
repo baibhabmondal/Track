@@ -1,5 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -13,7 +14,22 @@ export class TaskServiceService {
     done: []
   };
 
+  loaded = false;
+
   constructor(private storage: Storage) { }
+
+  tasks$ = new Observable<any>((observer) => {
+    // this.getData();
+    this.storage.get('tasks')
+    .then(data => {
+      if (!!data) {
+        console.log(data);
+        this.tasks = data;
+      }
+      this.loaded = true;
+      observer.next(this.tasks);
+    });
+  });
 
   toDoTasks() {
     return this.tasks.todo;
@@ -62,8 +78,16 @@ export class TaskServiceService {
     this.tasks.done.splice(to, 0, task[0]);
   }
 
+  async getData() {
+    const data = await this.storage.get('tasks');
+    if (!!data) {
+      console.log(data);
+      this.tasks = data;
+    }
+  }
+
   save() {
-    console.log(this.tasks)
+    console.log(this.tasks);
     this.storage.set('tasks', this.tasks);
   }
 }

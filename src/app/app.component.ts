@@ -1,5 +1,5 @@
 import { TaskServiceService } from './../services/task-service.service';
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -12,7 +12,11 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
+
+  backButtonSubscription;
+  pauseSubscription;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -23,21 +27,36 @@ export class AppComponent {
     this.initializeApp();
   }
 
+  ngOnInit() {
+    this.taskService.getData();
+  }
+
+  ngAfterViewInit() {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+      this.taskService.save();
+      navigator['app'].exitApp();
+    });
+
+    this.pauseSubscription = this.platform.pause.subscribe(() => {
+      this.taskService.save();
+    });
+
+    window.addEventListener('beforeunload', () => {
+      this.taskService.save();
+    });
+  }
+
+  ngOnDestroy() {
+    this.backButtonSubscription.unsubscribe();
+    this.pauseSubscription.unsubscribe();
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.storage.get('tasks')
-        .then(val => {
-          console.log(val)
-           if (val != null) {
-             this.taskService.tasks = val;
-           }
-        });
-      window.addEventListener('beforeunload', () => {
-        this.taskService.save();
-      });
     });
-
   }
+
+  
 }

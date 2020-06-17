@@ -1,6 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { TaskServiceService } from './../../services/task-service.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateTaskPage } from './createTask/createTask.page';
 
@@ -10,20 +10,29 @@ import { CreateTaskPage } from './createTask/createTask.page';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit{
+export class Tab1Page implements OnInit, AfterViewInit{
 
-  sliderOptions = { pager: true, autoHeight: true };
+  sliderOptions = { pager: true, initialSlide: 1, autoHeight: true };
 
   tasks = [];
   constructor(public modalController: ModalController, private taskService: TaskServiceService, private storage: Storage) {}
 
   ngOnInit() {
-    // const todo = await this.storage.get('todo');
-    // if (todo != null) {
-    //   this.taskService.todo = todo;
-    // }
-    this.tasks = this.taskService.toDoTasks();
+
   }
+
+  ngAfterViewInit() {
+    console.log("tab1");
+    if (!this.taskService.loaded) {
+      const taskSub = this.taskService.tasks$.subscribe(t => {
+        console.log('inside sub: ', t);
+        this.tasks = t.todo;
+      });
+    } else {
+      this.tasks = this.taskService.toDoTasks();
+    }
+  }
+
   doReorder(ev: any) {
 
     // console.log('Dragged from index', ev.detail.from, 'to', ev.detail.to);
