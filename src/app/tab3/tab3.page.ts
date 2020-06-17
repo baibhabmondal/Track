@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab3Page implements OnInit {
   tasks = [];
-  sliderOptions = { pager: true, initialSlide: 1, autoHeight: true };
+  sliderOptions = { pager: true, initialSlide: 0, autoHeight: true };
   constructor(private taskService: TaskServiceService, private storage: Storage) {}
 
  ngOnInit() {

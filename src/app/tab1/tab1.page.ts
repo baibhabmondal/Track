@@ -12,7 +12,7 @@ import { CreateTaskPage } from './createTask/createTask.page';
 })
 export class Tab1Page implements OnInit, AfterViewInit{
 
-  sliderOptions = { pager: true, initialSlide: 1, autoHeight: true };
+  sliderOptions = { pager: true, initialSlide: 0, autoHeight: true };
 
   tasks = [];
   constructor(public modalController: ModalController, private taskService: TaskServiceService, private storage: Storage) {}
