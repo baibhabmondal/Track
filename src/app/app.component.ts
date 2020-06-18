@@ -28,7 +28,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.taskService.getData();
+    // this.taskService.getData();
   }
 
   ngAfterViewInit() {

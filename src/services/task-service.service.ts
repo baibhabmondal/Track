@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TaskServiceService {
-  
   tasks = {
     todo: [],
     progress: [],
@@ -23,8 +22,8 @@ export class TaskServiceService {
     this.storage.get('tasks')
     .then(data => {
       if (!!data) {
-        console.log(data);
-        this.tasks = data;
+        this.tasks = JSON.parse(data);
+        console.log(this.tasks);
       }
       this.loaded = true;
       observer.next(this.tasks);
@@ -78,16 +77,16 @@ export class TaskServiceService {
     this.tasks.done.splice(to, 0, task[0]);
   }
 
-  async getData() {
-    const data = await this.storage.get('tasks');
-    if (!!data) {
-      console.log(data);
-      this.tasks = data;
-    }
-  }
+  // async getData() {
+  //   const data = await this.storage.get('tasks');
+  //   if (!!data) {
+  //     this.tasks = data;
+  //     console.log(this.tasks);
+  //   }
+  // }
 
   save() {
     console.log(this.tasks);
-    this.storage.set('tasks', this.tasks);
+    this.storage.set('tasks', JSON.stringify(this.tasks));
   }
 }

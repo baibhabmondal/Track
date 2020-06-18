@@ -35,7 +35,7 @@ export class Tab3Page implements OnInit {
   calc_progress(create, deadline) {
     let today = new Date().getTime();
     // let total = deadline.getTime() - create.getTime();
-    let diff = deadline.getTime() - today;
+    let diff = new Date(deadline).getTime() - today;
     let days = diff / (1000 * 3600 * 24);
     if (days > 30)
       return 1;
