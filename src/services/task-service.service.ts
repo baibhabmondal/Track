@@ -23,7 +23,7 @@ export class TaskServiceService {
     .then(data => {
       if (!!data) {
         this.tasks = JSON.parse(data);
-        console.log(this.tasks);
+        // console.log(this.tasks);
       }
       this.loaded = true;
       observer.next(this.tasks);
@@ -39,7 +39,7 @@ export class TaskServiceService {
   }
 
   createTask(task) {
-    console.log(task);
+    // console.log(task);
     this.tasks.todo.push(task);
   }
 
@@ -86,7 +86,7 @@ export class TaskServiceService {
   // }
 
   save() {
-    console.log(this.tasks);
+    // console.log(this.tasks);
     this.storage.set('tasks', JSON.stringify(this.tasks));
   }
 }

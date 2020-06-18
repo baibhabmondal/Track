@@ -22,7 +22,7 @@ export class Tab1Page implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit() {
-    console.log("tab1");
+    // console.log("tab1");
     if (!this.taskService.loaded) {
       const taskSub = this.taskService.tasks$.subscribe(t => {
         console.log('inside sub: ', t);
